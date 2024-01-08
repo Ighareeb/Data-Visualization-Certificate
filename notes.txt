@@ -152,7 +152,25 @@ svg.append('g')
 	.call(yAxis);
 
 
-
+------------------JSON APIs and AJAX-----------------------
+JSON transmitted by APIs are sent as bytes, and your application receives it as a string. 
+These can be converted into JavaScript objects, but they are not JavaScript objects by default. 
+The JSON.parse() method parses the string and constructs the JavaScript object described by it.
+JSON.stringify() method converts the JavaScript object into a string.
+example:
+const req = new XMLHttpRequest();
+req.open("GET",'/json/cats.json',true);			-->initializes a request (true = asynchronous request)
+req.send();
+req.onload = function(){
+  const json = JSON.parse(req.responseText);
+  document.getElementsByClassName('message')[0].innerHTML = JSON.stringify(json);
+};
+example using fetch():
+fetch('/json/cats.json')
+  .then(response => response.json())			-->takes the response and converts it to JSON format.
+  .then(data => {
+    document.getElementById('message').innerHTML = JSON.stringify(data);
+  })
 
 
 
